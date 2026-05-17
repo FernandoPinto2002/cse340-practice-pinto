@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
+const pageRoutes = require('./src/routes/pageRoutes');
 
 const app = express();
 
@@ -15,20 +16,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
-/**
- * Routes
- */
-app.get('/', (req, res) => {
-  res.render('home', { title: 'Welcome Home' });
-});
-
-app.get('/about', (req, res) => {
-  res.render('about', { title: 'About Me' });
-});
-
-app.get('/products', (req, res) => {
-  res.render('products', { title: 'Our Products' });
-});
+// Routes
+app.use('/', pageRoutes);
 
 // Start server
 app.listen(PORT, () => {
